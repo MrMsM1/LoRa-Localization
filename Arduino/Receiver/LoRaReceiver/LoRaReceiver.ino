@@ -87,7 +87,7 @@ void loop() {
     HTTPClient http;
     http.begin(String(serverAddress) + "/esp32data");
     http.addHeader("Content-Type", "application/json");
-    String dataToSend = "{\"Data\":\"" + String(doc["Data"].as<const char*>()) + "\",\"RSSI\":\"" + String(LoRa.packetRssi()) + "\",\"Comment\":\"" + String(doc["Comment"].as<const char*>()) + "\"}";
+    String dataToSend = "{\"rcv\": 1 ,\"Data\":\"" + String(doc["Data"].as<const char*>()) + "\",\"RSSI\":\"" + String(LoRa.packetRssi()) + "\",\"Comment\":\"" + String(doc["Comment"].as<const char*>()) + "\"}";
     Serial.println("Data: " + dataToSend);
     Serial.println("WTF: " + String(doc["Data"].as<const char*>()));
     // Send data to the server
