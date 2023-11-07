@@ -30,11 +30,18 @@ app.post('/esp32data', (req, res) => {
   if (senderState) {
     // Get the comment from the request
     const comment = req.body.Comment;
+    const rcv = req.body.rcv; 
 
-    // Save the received data along with the comment to a text file
-    const dataToSave = `Data: ${data.Data}, RSSI: ${data.RSSI}, Comment: ${comment}, Timestamp: ${new Date()}\n`;
+    if (!rcv) {
+      res.status(400).send('rcv value is missing');
+      return;
+    }
 
-    fs.appendFile('data.txt', dataToSave, (err) => {
+    // Save the received data along with the comment to a text file based on rcv
+    const filename = `data${rcv}.txt`;
+    const dataToSave = `Receiver: ${data.rcv} ,Data: ${data.Data}, RSSI: ${data.RSSI}, Comment: ${comment}, Timestamp: ${new Date()}\n`;
+
+    fs.appendFile(filename, dataToSave, (err) => {
       if (err) {
         console.error('Error saving data:', err);
         res.status(500).send('Error saving data');
