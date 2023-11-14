@@ -1,7 +1,7 @@
 #!/bin/bash
 
-input_file="../data4.txt"
-output_file="output4.json"
+input_file="output1.json"
+output_file="output_final11.json"
 
 # Check if the input file exists
 if [ ! -f "$input_file" ]; then
@@ -12,10 +12,19 @@ fi
 # Process each line in the input file
 echo "[" > "$output_file"  # Start of JSON array
 while IFS= read -r line; do
-    # Extract Comment and RSSI values using awk
-    comment_x=$(echo "$line" | awk -F 'Comment: ' '{print $2}' | awk -F ',' '{print $1}')
-    comment_y=$(echo "$line" | awk -F 'Comment: ' '{print $2}' | awk -F ',' '{print $2}')
-    rssi=$(echo "$line" | awk -F 'RSSI: ' '{print $2}' | awk -F ',' '{print $1}')
+    # Extract x, y, and rssi values from the modified JSON
+    comment_x=$(echo "$line" | awk -F '\"x\": ' '{print $2}' | awk -F ',' '{print $1}')
+    comment_y=$(echo "$line" | awk -F '\"y\": ' '{print $2}' | awk -F ',' '{print $1}')
+    rssi=$(echo "$line" | awk -F '\"rssi\": ' '{print $2}')
+
+    # Increment x and y if they are even
+    if (( comment_x % 2 == 0 )); then
+        ((comment_x++))
+    fi
+
+    if (( comment_y % 2 == 0 )); then
+        ((comment_y++))
+    fi
 
     # Output in JSON format
     echo "  {" >> "$output_file"
@@ -30,4 +39,5 @@ done < "$input_file"
 truncate -s-2 "$output_file"
 
 echo "]" >> "$output_file"  # End of JSON array
-echo "Extraction complete. Results saved to $output_file"
+echo "Final modification complete. Results saved to $output_file"
+
