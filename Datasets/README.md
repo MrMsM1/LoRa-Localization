@@ -37,7 +37,6 @@ x, y, rssi
 **Notes**
 - `(x, y)` are tile indices on the 25 cm grid.
 - `rssi` is RSSI in dBm as measured at a receiver from the sender.
-- Multiple replicate readings may exist per coordinate (aggregate with mean/median if needed).
 
 ---
 
@@ -60,8 +59,7 @@ S0 to R1, S0 to R2, S0 to R3, S0 to R4   # sender→receiver links
 
 **Notes**
 - Parse `Comment` into numeric `x, y`.
-- RSSI values are in dBm (negative values).
-- Use either **Sender-only features** (`S0 to R*`) or **Sender+IG** (all `* to *`) depending on your model.
+- RSSI values are in dBm.
 
 
 ---
@@ -79,7 +77,6 @@ S0 to R1, S0 to R2, S0 to R3, S0 to R4   # sender→receiver links
 
 ## 📬 Contact & License
 
-- **Maintainer:** _Your Name_  
+- **Maintainer:** Mohammad Ali Sharifi Mehr 
 - **Institution:** Sharif University of Technology  
-- **Email:** yourname@university.edu  
-- **License:** MIT or CC-BY 4.0 (choose and update)
+- **Email:** sharifimehrmohammadali@gmail.com  
